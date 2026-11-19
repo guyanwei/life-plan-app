@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#4772FA">
+<title>人生规划 · 达成更多，用心生活</title>
+<style>
+:root{
+  --primary:#4772FA; --primary-d:#2f54d6; --violet:#7b5ce6; --ink:#151b2b; --ink-2:#5b6680;
+  --line:#e8edf7; --bg:#f7f9fd; --card:#fff; --soft:#eef3ff;
+  --shadow:0 18px 50px rgba(39,64,140,.12); --shadow-s:0 8px 24px rgba(39,64,140,.10);
+  /* 游戏化主题：深空夜幕 + 鎏金 + 灵青 */
+  --void:#0b1020; --void-2:#141c34; --void-3:#1c2745;
+  --gold:#e9b64a; --gold-l:#ffd97a; --cyan:#4fd6c8; --gold-deep:#a97a1e;
+}
+/* ===== 游戏化通用 ===== */
+.rpg-dark{background:radial-gradient(ellipse at 12% 0%,#1c2745 0%,#0b1020 55%,#080c18 100%);color:#eef2ff;position:relative;overflow:hidden}
+.rpg-dark::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;
+  background:radial-gradient(circle,rgba(233,182,74,.13),transparent 66%);right:-180px;top:-180px;pointer-events:none}
+.rpg-dark::after{content:"";position:absolute;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(79,214,200,.09),transparent 68%);left:-160px;bottom:-220px;pointer-events:none}
+.rpg-dark .wrap{position:relative;z-index:2}
+.rpg-kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;letter-spacing:3px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.rpg-kicker::before,.rpg-kicker::after{content:"";width:22px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.rpg-kicker::after{background:linear-gradient(90deg,var(--gold),transparent)}
+.rpg-dark .sec-head h2{color:#fff}
+.rpg-dark .sec-head p{color:#9fb0d0}
+.gold-txt{background:linear-gradient(100deg,#fff0c9,var(--gold-l) 45%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* ============ 顶部导航 ============ */
+.nav{position:fixed;top:0;left:0;right:0;height:64px;z-index:100;display:flex;align-items:center;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(232,237,247,.8);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 4px 20px rgba(39,64,140,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;letter-spacing:.3px;color:var(--ink)}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--violet));
+  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(71,114,250,.35)}
+.nav-links{display:flex;gap:30px;font-size:14px;color:var(--ink-2);font-weight:600}
+.nav-links a{color:inherit;transition:color .2s}
+.nav-links a:hover{color:var(--primary)}
+.nav-cta{display:inline-flex;align-items:center;gap:7px;background:var(--primary);color:#fff;font-weight:700;font-size:14px;
+  padding:9px 18px;border-radius:10px;box-shadow:0 6px 16px rgba(71,114,250,.3);transition:transform .2s,box-shadow .2s}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(71,114,250,.4)}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:132px 0 96px;overflow:hidden;
+  background:radial-gradient(ellipse at 78% 8%,#23345e 0%,#121b33 42%,#0b1020 78%,#080c18 100%);color:#fff}
+.hero::before{content:"";position:absolute;width:680px;height:680px;border-radius:50%;
+  background:radial-gradient(circle,rgba(233,182,74,.15),transparent 64%);right:-160px;top:-220px}
+.hero::after{content:"";position:absolute;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(79,214,200,.10),transparent 70%);left:-180px;bottom:-240px}
+/* 星空粒子 */
+.hero .stars{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(1.5px 1.5px at 12% 22%,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 28% 68%,rgba(255,226,160,.7),transparent),
+  radial-gradient(2px 2px at 62% 18%,rgba(255,255,255,.55),transparent),radial-gradient(1.5px 1.5px at 82% 52%,rgba(120,230,220,.65),transparent),
+  radial-gradient(1.5px 1.5px at 48% 82%,rgba(255,255,255,.5),transparent),radial-gradient(2px 2px at 92% 78%,rgba(255,226,160,.55),transparent);
+  background-size:100% 100%;animation:twinkle 5s ease-in-out infinite alternate}
+@keyframes twinkle{0%,100%{opacity:.65}50%{opacity:1}}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 620px;gap:34px;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;letter-spacing:1px;
+  background:rgba(233,182,74,.12);border:1px solid rgba(233,182,74,.42);color:var(--gold-l);padding:7px 16px;border-radius:100px;margin-bottom:24px}
+.hero-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 4px rgba(79,214,200,.2);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(79,214,200,.2)}50%{box-shadow:0 0 0 8px rgba(79,214,200,0)}}
+.hero h1{font-size:53px;line-height:1.16;font-weight:900;letter-spacing:-1px;margin-bottom:10px}
+.hero h1 .hl{position:relative;display:inline-block}
+.hero h1 .hl::after{content:"";position:absolute;left:0;right:0;bottom:3px;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--gold),transparent);box-shadow:0 0 14px rgba(233,182,74,.6)}
+.hero .slogan{font-size:19px;font-weight:700;color:var(--gold-l);margin-bottom:14px;letter-spacing:.5px}
+.hero .lead{font-size:15.5px;line-height:1.85;color:#b9c6e4;max-width:540px}
+.hero .lead b{color:#fff}
+.hero-badges{display:flex;flex-wrap:wrap;gap:9px;margin:26px 0 30px}
+.hero-badges span{font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:100px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);color:#d7e0f5}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.btn-main{display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(100deg,var(--gold-l),var(--gold));color:#2a1d05;font-weight:900;font-size:16px;
+  padding:15px 30px;border-radius:13px;box-shadow:0 12px 34px rgba(233,182,74,.35),inset 0 1px 0 rgba(255,255,255,.5);
+  transition:transform .2s,box-shadow .2s}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(233,182,74,.5)}
+.btn-main svg{flex:none}
+.btn-ghost{display:inline-flex;align-items:center;gap:7px;color:#e8eeff;font-weight:700;font-size:14.5px;
+  padding:14px 20px;border:1.5px solid rgba(255,255,255,.3);border-radius:13px;transition:background .2s,border-color .2s}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(233,182,74,.6)}
+.hero-note{font-size:12px;color:#8494b8;margin-top:14px}
+.hero-note span{color:var(--gold-l)}
+
+/* ---- Hero 双端真实画面动态演示 ---- */
+.hero-stage{position:relative;justify-self:center;width:640px;height:500px;perspective:1400px}
+/* 电脑浏览器 mockup（左侧，与手机不重叠） */
+.desk{position:absolute;top:8px;left:0;width:400px;height:290px;border-radius:14px;overflow:hidden;cursor:pointer;
+  background:#fff;box-shadow:0 30px 70px rgba(6,12,40,.5),inset 0 0 0 1px rgba(255,255,255,.5)}
+.desk-bar{height:30px;display:flex;align-items:center;gap:7px;padding:0 13px;background:#f1f3f8;border-bottom:1px solid #e3e8f2}
+.desk-bar i{width:10px;height:10px;border-radius:50%;background:#ff605c}
+.desk-bar i:nth-child(2){background:#ffbd44}
+.desk-bar i:nth-child(3){background:#00ca4e}
+.desk-url{margin-left:12px;flex:1;height:18px;border-radius:6px;background:#fff;display:flex;align-items:center;
+  padding:0 10px;font-size:10px;color:#9aa4b8;font-weight:600}
+.desk-body{position:relative;height:calc(100% - 30px);background:#fff;overflow:hidden}
+.desk-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top left;
+  opacity:0;transform:scale(1.02);transition:opacity .55s ease,transform 6s ease}
+.desk-shot.on{opacity:1;transform:scale(1)}
+/* 手机 mockup（右侧，与电脑不重叠） */
+.phone{position:absolute;right:0;bottom:0;width:214px;height:434px;border-radius:38px;padding:9px;cursor:pointer;
+  background:linear-gradient(145deg,#1c2433,#0a0f18);box-shadow:0 34px 70px rgba(3,7,24,.62),inset 0 0 0 2px #39445a;z-index:3}
+.phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:88px;height:22px;background:#0a0f18;border-radius:0 0 15px 15px;z-index:5}
+.phone-screen{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:#fff}
+.phone-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;
+  opacity:0;transition:opacity .55s ease}
+.phone-shot.on{opacity:1}
+/* 演示状态标签 */
+.demo-tag{position:absolute;z-index:6;background:rgba(255,255,255,.96);border-radius:100px;padding:7px 13px 7px 10px;
+  display:flex;align-items:center;gap:7px;box-shadow:0 10px 26px rgba(10,18,50,.25);font-size:12px;font-weight:800;color:var(--ink)}
+.demo-tag .pulse-dot{width:8px;height:8px;border-radius:50%;background:#23a06b;box-shadow:0 0 0 4px rgba(35,160,107,.18);animation:pulse 1.8s infinite}
+.demo-tag small{font-weight:600;color:var(--ink-2);font-size:10.5px}
+.demo-tag.desk-tag{top:-16px;left:0;animation:floaty 5s ease-in-out infinite}
+.demo-tag.phone-tag{bottom:70px;right:-14px;animation:floaty 5s ease-in-out infinite -2.5s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+/* 手动切换控制条 */
+.demo-ctrl{position:absolute;left:0;bottom:14px;z-index:6;display:flex;align-items:center;gap:8px}
+.demo-ctrl button{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.14);
+  color:#fff;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .2s;backdrop-filter:blur(8px)}
+.demo-ctrl button:hover{background:rgba(255,255,255,.3);transform:scale(1.08)}
+.demo-ctrl .playpause{width:36px;height:36px;background:rgba(255,255,255,.92);color:var(--primary);border:none;font-size:14px}
+.demo-hint{font-size:11px;color:rgba(255,255,255,.82);margin-left:4px;font-weight:600}
+/* 视图轮播指示灯 */
+.view-dots{position:absolute;left:150px;bottom:24px;display:flex;gap:7px;z-index:4;flex-wrap:wrap;width:255px}
+.view-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s}
+.view-dots i.on{background:#fff;width:24px;border-radius:5px;box-shadow:0 0 10px rgba(255,255,255,.6)}
+.view-name{position:absolute;left:0;bottom:58px;z-index:4;font-size:13px;font-weight:800;color:#fff;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:6px 14px;border-radius:100px;backdrop-filter:blur(8px)}
+
+/* ============ 数据条 ============ */
+.stats{background:linear-gradient(180deg,#0b1020,#0e1428);border-bottom:1px solid rgba(233,182,74,.14)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);padding-top:34px;padding-bottom:34px}
+.stat{text-align:center;position:relative}
+.stat:not(:last-child)::after{content:"";position:absolute;right:0;top:12%;height:76%;width:1px;background:rgba(255,255,255,.09)}
+.stat .num{font-size:40px;font-weight:900;letter-spacing:-1px;line-height:1.1;
+  background:linear-gradient(180deg,#fff0c9,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .num .u{font-size:18px;font-weight:800}
+.stat .lbl{font-size:13px;color:#9fb0d0;margin-top:6px;font-weight:600}
+
+/* ============ 通用 Section ============ */
+section{padding:88px 0}
+.sec-head{text-align:center;max-width:640px;margin:0 auto 52px}
+.sec-kicker{display:inline-block;font-size:13px;font-weight:800;color:var(--primary);letter-spacing:2px;margin-bottom:12px}
+.sec-head h2{font-size:36px;font-weight:900;letter-spacing:-.6px;margin-bottom:14px;line-height:1.25}
+.sec-head p{font-size:15.5px;color:var(--ink-2);line-height:1.75}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ 人生 RPG · 怎么玩（4步循环）============ */
+.rpg-intro{padding:92px 0}
+.rpg-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px;position:relative}
+.rpg-flow::before{content:"";position:absolute;top:52px;left:12%;right:12%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold) 12%,var(--gold) 88%,transparent);opacity:.35;z-index:0}
+.rpg-step{position:relative;z-index:1;text-align:center;padding:0 4px}
+.rpg-step .ic{width:104px;height:104px;margin:0 auto 20px;border-radius:26px;display:flex;align-items:center;justify-content:center;
+  font-size:42px;background:linear-gradient(150deg,rgba(233,182,74,.18),rgba(79,214,200,.08));
+  border:1px solid rgba(233,182,74,.4);box-shadow:0 12px 36px rgba(0,0,0,.4),inset 0 0 30px rgba(233,182,74,.08);
+  position:relative;transition:transform .35s,box-shadow .35s}
+.rpg-step:hover .ic{transform:translateY(-8px) rotate(-3deg);box-shadow:0 20px 48px rgba(233,182,74,.28)}
+.rpg-step .ic::before{content:attr(data-n);position:absolute;top:-8px;right:-8px;width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#2a1d05;font-size:13px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(233,182,74,.5)}
+.rpg-step h3{font-size:18px;font-weight:900;color:#fff;margin-bottom:9px}
+.rpg-step p{font-size:13px;color:#9fb0d0;line-height:1.72;max-width:230px;margin:0 auto}
+.rpg-step .eg{display:inline-block;margin-top:10px;font-size:11.5px;color:var(--gold-l);
+  background:rgba(233,182,74,.1);border:1px solid rgba(233,182,74,.25);padding:4px 11px;border-radius:100px}
+.rpg-hook{text-align:center;margin-top:54px;padding:30px 34px;border-radius:20px;
+  background:linear-gradient(100deg,rgba(233,182,74,.08),rgba(79,214,200,.05));border:1px solid rgba(233,182,74,.2)}
+.rpg-hook .q{font-size:19px;font-weight:800;color:#fff;line-height:1.6;margin-bottom:6px}
+.rpg-hook .q em{font-style:normal;color:var(--gold-l)}
+.rpg-hook .sub{font-size:13.5px;color:#9fb0d0}
+
+/* ============ 核心场景（借鉴原版5大板块）============ */
+.scenes{background:var(--bg)}
+.scene-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.scene-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:0;overflow:hidden;
+  box-shadow:var(--shadow-s);transition:transform .3s,box-shadow .3s}
+.scene-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.scene-visual{height:150px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.scene-visual.list{background:linear-gradient(160deg,#eaf0ff,#dce6ff)}
+.scene-visual.cal{background:linear-gradient(160deg,#f0eaff,#e6ddff)}
+.scene-visual.pomo{background:linear-gradient(160deg,#fff0e8,#ffe0d0)}
+.scene-visual.habit{background:linear-gradient(160deg,#e6f7f0,#d3f0e4)}
+.scene-visual.count{background:linear-gradient(160deg,#fff5e0,#ffe9bd)}
+.scene-body{padding:18px 18px 20px}
+.scene-body h3{font-size:16px;font-weight:800;margin-bottom:6px}
+.scene-body p{font-size:12.5px;color:var(--ink-2);line-height:1.65}
+
+/* 场景内的小画面 */
+.mini-list{width:78%;background:#fff;border-radius:10px;padding:9px 11px;box-shadow:0 8px 20px rgba(39,64,140,.14)}
+.mini-list .r{display:flex;align-items:center;gap:7px;margin:5px 0;font-size:9px}
+.mini-list .c{width:12px;height:12px;border-radius:50%;border:2px solid #c9d2e4;flex:none}
+.mini-list .c.on{background:var(--primary);border-color:var(--primary)}
+.mini-list .ln{height:6px;border-radius:3px;background:#e8edf7;flex:1}
+.mini-list .ln.s{background:#f0f3fa}
+.mini-cal{width:82%;background:#fff;border-radius:10px;padding:10px 11px;box-shadow:0 8px 20px rgba(90,64,180,.14)}
+.mini-cal .hd{font-size:9px;font-weight:800;color:var(--violet);margin-bottom:7px}
+.mini-cal .g{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.mini-cal .g i{aspect-ratio:1;border-radius:3px;background:#f0eafa;display:block}
+.mini-cal .g i.evt{background:var(--violet)}
+.mini-cal .g i.today{background:var(--primary);box-shadow:0 0 0 2px #cdd9ff}
+.mini-pomo{width:118px;height:118px;border-radius:50%;background:conic-gradient(#ff8a5b 0 72%,#ffe0d0 72% 100%);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(255,138,91,.28)}
+.mini-pomo::before{content:"24:38";position:relative;width:96px;height:96px;border-radius:50%;background:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#e8723f}
+.mini-habit{width:84%;display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.mini-habit i{aspect-ratio:1;border-radius:5px;background:rgba(255,255,255,.65);position:relative}
+.mini-habit i.on{background:#2fbf8f}
+.mini-habit i.on::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-style:normal}
+.mini-count{width:76%;background:#fff;border-radius:12px;padding:12px;box-shadow:0 8px 20px rgba(200,150,30,.16);text-align:center}
+.mini-count .heart{font-size:22px}
+.mini-count .d{font-size:15px;font-weight:900;color:#e8952a;margin-top:2px}
+.mini-count .t{font-size:9px;color:var(--ink-2)}
+
+/* ============ 招牌功能：全屏提醒弹窗 ============ */
+.alarm-sec{background:linear-gradient(135deg,#1a2340 0%,#232f57 60%,#2b3a6b 100%);color:#fff;position:relative;overflow:hidden}
+.alarm-sec::before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(71,114,250,.28),transparent 68%);left:-140px;top:-120px}
+.alarm-sec .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 400px;gap:70px;align-items:center}
+.alarm-copy .sec-kicker{color:#8fb0ff}
+.alarm-copy h2{font-size:38px;font-weight:900;line-height:1.25;margin-bottom:16px;letter-spacing:-.5px}
+.alarm-copy .desc{font-size:15.5px;color:#c3cee8;line-height:1.8;margin-bottom:26px}
+.alarm-feats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.alarm-feat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:15px 16px}
+.alarm-feat .f-ic{font-size:19px;margin-bottom:7px}
+.alarm-feat b{font-size:14px;display:block;margin-bottom:3px}
+.alarm-feat small{font-size:12px;color:#b3c0dd;line-height:1.55}
+
+/* 弹窗演示 */
+.alarm-demo{position:relative;display:flex;flex-direction:column;align-items:center}
+.ring-wrap{position:relative;width:340px;height:560px;border-radius:44px;padding:12px;
+  background:#0d1322;box-shadow:0 30px 70px rgba(0,0,0,.5),inset 0 0 0 2px #26314a;overflow:hidden}
+.ring-screen{position:relative;width:100%;height:100%;border-radius:33px;overflow:hidden;
+  background:linear-gradient(180deg,#3a4a78,#2a355c 55%,#1b2340)}
+.ring-clock{position:absolute;top:46px;left:0;right:0;text-align:center;font-size:46px;font-weight:900;letter-spacing:1px;z-index:2}
+.ring-date{position:absolute;top:104px;left:0;right:0;text-align:center;font-size:12px;color:#c3cee8;z-index:2}
+.ring-card{position:absolute;top:150px;left:18px;right:18px;background:#fff;border-radius:20px;padding:20px;
+  box-shadow:0 16px 40px rgba(0,0,0,.3);animation:cardIn .8s both;z-index:2}
+@keyframes cardIn{0%{opacity:0;transform:translateY(28px) scale(.95)}100%{opacity:1;transform:none}}
+.ring-card .tag{display:flex;align-items:center;gap:6px;color:var(--primary);font-size:11px;font-weight:800}
+.ring-card .ttl{font-size:21px;font-weight:900;color:#151b2b;margin:12px 0 7px}
+.ring-card .bd{font-size:12px;color:#6b7280;line-height:1.6}
+.ring-card .hr{height:1px;background:#eef0f5;margin:14px 0}
+.ring-card .mt{font-size:11px;color:#9ca3af}
+.ring-btns{position:absolute;left:18px;right:18px;bottom:64px;display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  animation:cardIn .8s .2s both;z-index:2}
+.rb{padding:12px 0;border-radius:24px;text-align:center;font-size:12px;font-weight:800;color:#fff}
+.rb.ghost{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.4)}
+.rb.primary{background:var(--primary);box-shadow:0 6px 16px rgba(71,114,250,.4)}
+.rb.small{font-size:11px}
+.ring-bell{position:absolute;top:150px;left:50%;transform:translateX(-50%);width:70px;height:70px;border-radius:50%;
+  background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:34px;z-index:1;
+  animation:bellFade 3.2s infinite;pointer-events:none}
+@keyframes bellFade{0%,10%{opacity:1}22%,100%{opacity:0}}
+.ring-wave{position:absolute;top:150px;left:50%;width:70px;height:70px;border-radius:50%;margin-left:-35px;
+  border:2px solid rgba(255,255,255,.6);animation:wave 3.2s infinite;z-index:1;pointer-events:none}
+.ring-wave.w2{animation-delay:.45s}
+.ring-wave.w3{animation-delay:.9s}
+@keyframes wave{0%{transform:scale(1);opacity:.85}25%{opacity:0}100%{transform:scale(4.4);opacity:0}}
+.ring-card .tag{animation:tagGlow 2.4s ease-in-out infinite}
+@keyframes tagGlow{0%,100%{opacity:1}50%{opacity:.55}}
+.alarm-note{text-align:center;font-size:12px;color:#8fa0c8;margin-top:16px}
+
+/* ============ 多视图 Tab ============ */
+.views{background:#fff}
+.view-tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+.view-tab{padding:11px 24px;border-radius:12px;font-size:14px;font-weight:700;color:var(--ink-2);
+  background:var(--bg);border:1.5px solid transparent;cursor:pointer;transition:all .25s}
+.view-tab.on{color:#fff;background:linear-gradient(135deg,var(--primary),var(--violet));
+  box-shadow:0 8px 20px rgba(71,114,250,.3)}
+.view-stage{max-width:900px;margin:0 auto;background:var(--bg);border:1px solid var(--line);border-radius:24px;
+  padding:26px;box-shadow:var(--shadow);min-height:340px}
+.view-pane{display:none;animation:fadeUp .5s}
+.view-pane.on{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.view-pane h4{font-size:17px;margin-bottom:4px}
+.view-pane .vp-sub{font-size:13px;color:var(--ink-2);margin-bottom:20px}
+.vp-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center}
+
+/* 视图小画面 */
+.mock-window{background:#fff;border-radius:14px;border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow-s)}
+.mock-window .mw-bar{height:30px;background:#f7f9fd;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:5px;padding:0 12px}
+.mock-window .mw-bar i{width:7px;height:7px;border-radius:50%;background:#d7deec}
+.mock-window .mw-body{padding:14px}
+.mk-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.mk-cal .d{aspect-ratio:1;border-radius:5px;background:#f5f7fc;display:flex;align-items:flex-start;padding:3px;font-size:8px;color:#9aa4b8}
+.mk-cal .d.e{background:#eaf0ff;color:var(--primary);font-weight:800}
+.mk-cal .d .pip{width:4px;height:4px;border-radius:50%;background:var(--primary);margin-top:2px}
+.mk-col{display:flex;gap:8px;min-height:150px}
+.mk-col .col{flex:1;background:#f5f7fc;border-radius:8px;padding:7px}
+.mk-col .col h6{font-size:8px;color:var(--ink-2);margin-bottom:6px;text-align:center}
+.mk-col .chip{background:#fff;border-radius:5px;padding:5px;font-size:8px;margin-bottom:5px;box-shadow:0 1px 3px rgba(0,0,0,.06);border-left:3px solid var(--primary)}
+.mk-col .chip.v{border-color:var(--violet)}
+.mk-col .chip.o{border-color:#ff8a5b}
+.mk-tl{position:relative;padding-left:44px;height:180px}
+.mk-tl .line{position:absolute;left:34px;top:0;bottom:0;width:1px;background:var(--line)}
+.mk-tl .ev{position:relative;margin-bottom:12px;font-size:8px}
+.mk-tl .ev .t{position:absolute;left:-44px;top:0;color:#9aa4b8}
+.mk-tl .ev .box{background:#eaf0ff;border-radius:6px;padding:5px 8px;color:var(--primary);font-weight:700;margin-left:8px}
+.mk-tl .ev .box.v{background:#f0eaff;color:var(--violet)}
+.mk-mtx{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.mk-mtx .q{border-radius:8px;padding:9px;min-height:74px}
+.mk-mtx .q.a{background:#eaf7f0}.mk-mtx .q.b{background:#eaf0ff}
+.mk-mtx .q.c{background:#fff4e5}.mk-mtx .q.d{background:#f0eaff}
+.mk-mtx .q h6{font-size:8px;color:var(--ink-2);margin-bottom:6px}
+.mk-mtx .q .chip{background:rgba(255,255,255,.8);border-radius:4px;padding:3px 5px;font-size:7.5px;margin-bottom:4px}
+.vp-points{list-style:none}
+.vp-points li{padding:9px 0 9px 26px;position:relative;font-size:13.5px;color:var(--ink-2);border-bottom:1px dashed var(--line)}
+.vp-points li:last-child{border:none}
+.vp-points li::before{content:"✓";position:absolute;left:0;top:9px;width:18px;height:18px;border-radius:50%;
+  background:#eaf7f0;color:#1f9e6e;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.vp-points li b{color:var(--ink)}
+
+/* ============ 导入人生（暗色游戏风）============ */
+.life{background:radial-gradient(ellipse at 80% 100%,#1a2340,#0b1020 60%);color:#eef2ff}
+.life-stage{max-width:940px;margin:0 auto;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border-radius:26px;box-shadow:0 20px 60px rgba(0,0,0,.45);
+  border:1px solid rgba(255,255,255,.12);overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+.life-picker{padding:32px;background:linear-gradient(160deg,rgba(233,182,74,.08),rgba(79,214,200,.04))}
+.life-picker h3{font-size:20px;margin-bottom:6px;color:#fff}
+.life-picker .lp-sub{font-size:13px;color:#9fb0d0;margin-bottom:22px}
+.life-char{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border:2px solid transparent;border-radius:16px;
+  padding:14px;margin-bottom:12px;cursor:pointer;transition:all .25s}
+.life-char.on{border-color:var(--gold);transform:translateX(4px);background:rgba(233,182,74,.1)}
+.life-ava{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:27px;flex:none}
+.life-ava.sun{background:linear-gradient(135deg,#ffe6b0,#ffb16b)}
+.life-ava.zg{background:linear-gradient(135deg,#dfe9ff,#9db8f5)}
+.life-char b{font-size:15px;display:block;color:#fff}
+.life-char small{font-size:11.5px;color:#9fb0d0}
+.life-picker .lp-tip{font-size:11.5px;color:#c8ab6a;margin-top:16px;line-height:1.7}
+.life-detail{padding:32px}
+.life-hero{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.life-hero .big-ava{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:34px}
+.life-hero h3{font-size:20px;color:#fff}
+.life-hero p{font-size:12px;color:#9fb0d0}
+.life-detail .lbl{font-size:12px;font-weight:800;color:#9fb0d0;margin:18px 0 10px;letter-spacing:.5px}
+.life-sched{display:flex;flex-direction:column;gap:7px}
+.life-sched .row{display:flex;align-items:center;gap:10px;font-size:12px}
+.life-sched .row .tm{font-weight:800;color:var(--gold-l);width:42px;flex:none}
+.life-sched .row .bar{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--gold),#9db8f5)}
+.life-sched .row .nm{color:#c8d4ee}
+.life-bars{display:flex;align-items:flex-end;gap:5px;height:52px;margin-top:4px}
+.life-bars i{flex:1;background:linear-gradient(180deg,var(--gold),#a97a1e);border-radius:3px 3px 0 0;display:block;transition:height .5s}
+.life-bars i.low{background:rgba(255,255,255,.12)}
+.life-price{display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:18px;border-top:1px dashed rgba(255,255,255,.16)}
+.life-price .p b{font-size:22px;color:var(--gold-l)}
+.life-price .p small{font-size:11px;color:#9fb0d0}
+.life-price button{background:linear-gradient(100deg,var(--gold-l),var(--gold));color:#2a1d05;border:none;border-radius:10px;padding:10px 18px;font-weight:900;font-size:13px;cursor:pointer;box-shadow:0 6px 16px rgba(233,182,74,.3)}
+
+/* ============ 角色图鉴 · 抽卡墙 ============ */
+.roster{padding:92px 0}
+.roster-tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.roster-tab{padding:9px 20px;border-radius:100px;font-size:13.5px;font-weight:700;color:#9fb0d0;cursor:pointer;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);transition:all .25s}
+.roster-tab:hover{border-color:rgba(233,182,74,.5);color:#fff}
+.roster-tab.on{background:linear-gradient(100deg,var(--gold-l),var(--gold));color:#2a1d05;border-color:transparent;
+  box-shadow:0 6px 20px rgba(233,182,74,.3)}
+.roster-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.hero-card{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .35s,box-shadow .35s;
+  background:linear-gradient(165deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.12);padding:0;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.hero-card:hover{transform:translateY(-8px);box-shadow:0 22px 50px rgba(0,0,0,.5)}
+.hero-card::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .35s;pointer-events:none;
+  background:radial-gradient(circle at 50% 0%,rgba(233,182,74,.22),transparent 62%)}
+.hero-card:hover::before{opacity:1}
+.hero-card.ssr{border-color:rgba(233,182,74,.5);box-shadow:0 10px 34px rgba(233,182,74,.16)}
+.hero-card.sr{border-color:rgba(160,120,240,.4)}
+.hero-card-port{height:172px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;
+  background:linear-gradient(160deg,var(--c1,#2a3557),var(--c2,#141c34))}
+.hero-card-port::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(11,16,32,.92))}
+.hero-card-port img{width:132px;height:132px;object-fit:cover;object-position:top center;border-radius:50% 50% 0 0;
+  position:relative;z-index:1;border:2px solid rgba(255,255,255,.18);border-bottom:none;
+  box-shadow:0 0 30px var(--glow,rgba(233,182,74,.3));transition:transform .35s}
+.hero-card:hover .hero-card-port img{transform:scale(1.06) translateY(-3px)}
+.hero-card-port .emoji{font-size:76px;line-height:172px;position:relative;z-index:1;filter:drop-shadow(0 8px 18px rgba(0,0,0,.5))}
+.hero-rarity{position:absolute;top:12px;left:12px;z-index:3;font-size:10px;font-weight:900;letter-spacing:1px;
+  padding:4px 9px;border-radius:6px;background:rgba(0,0,0,.45);backdrop-filter:blur(4px)}
+.hero-rarity.ssr{color:#2a1d05;background:linear-gradient(100deg,var(--gold-l),var(--gold))}
+.hero-rarity.sr{color:#fff;background:linear-gradient(100deg,#a174f0,#7b5ce6)}
+.hero-rarity.r{color:#fff;background:linear-gradient(100deg,#5aa0f0,#3f6fd6)}
+.hero-realm{position:absolute;top:12px;right:12px;z-index:3;font-size:10px;font-weight:700;
+  padding:4px 9px;border-radius:6px;color:var(--cyan);background:rgba(79,214,200,.12);border:1px solid rgba(79,214,200,.35)}
+.hero-card-body{padding:16px 16px 18px;position:relative;z-index:2}
+.hero-card-body h4{font-size:15.5px;font-weight:900;color:#fff;margin-bottom:4px}
+.hero-card-body .sub{font-size:11.5px;color:#9fb0d0;line-height:1.6;min-height:36px}
+.hero-card-body .meta{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.hero-card-body .meta span{font-size:10.5px;color:#c8d4ee;background:rgba(255,255,255,.07);
+  padding:3px 9px;border-radius:100px;border:1px solid rgba(255,255,255,.1)}
+.roster-note{text-align:center;margin-top:30px;font-size:13px;color:#8494b8}
+.roster-note b{color:var(--gold-l)}
+
+/* ============ 段位/境界系统 ============ */
+.rank-sec{padding:88px 0}
+.rank-track{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:20px}
+.rank-track::before{content:"";position:absolute;top:44px;left:8%;right:8%;height:3px;
+  background:linear-gradient(90deg,#4a5a7a,#7b5ce6 40%,var(--gold) 100%);opacity:.5}
+.rank-node{text-align:center;position:relative;z-index:1}
+.rank-badge{width:88px;height:88px;margin:0 auto 16px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:36px;background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.02));
+  border:2px solid rgba(255,255,255,.18);box-shadow:0 10px 30px rgba(0,0,0,.4);position:relative;transition:transform .3s}
+.rank-node:hover .rank-badge{transform:scale(1.1) translateY(-4px)}
+.rank-node.god .rank-badge{border-color:var(--gold);box-shadow:0 0 40px rgba(233,182,74,.4),0 10px 30px rgba(0,0,0,.4)}
+.rank-node .rn{font-size:15px;font-weight:900;color:#fff}
+.rank-node .rd{font-size:11.5px;color:#8494b8;margin-top:4px}
+.rank-node.god .rn{color:var(--gold-l)}
+
+/* ============ 丰富功能网格 ============ */
+.features{background:#fff}
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.feat-card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:22px 20px;transition:all .3s}
+.feat-card:hover{transform:translateY(-5px);background:#fff;box-shadow:var(--shadow-s)}
+.feat-card .fi{width:44px;height:44px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:14px}
+.feat-card h4{font-size:15px;margin-bottom:6px}
+.feat-card p{font-size:12.5px;color:var(--ink-2);line-height:1.65}
+
+/* ============ 隐私 + CTA ============ */
+.privacy{background:linear-gradient(135deg,#eff4ff,#e8ecff);padding:70px 0}
+.privacy .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.privacy h2{font-size:32px;font-weight:900;margin-bottom:14px}
+.privacy p{font-size:15px;color:var(--ink-2);line-height:1.8}
+.privacy ul{list-style:none;margin-top:20px}
+.privacy li{padding:8px 0 8px 28px;position:relative;font-size:14px;color:var(--ink-2)}
+.privacy li::before{content:"🔒";position:absolute;left:0;top:8px;font-size:13px}
+.privacy-visual{background:#fff;border-radius:22px;padding:24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.pv-row{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:var(--bg);margin-bottom:9px}
+.pv-row .ic{width:36px;height:36px;border-radius:10px;background:#eaf7f0;display:flex;align-items:center;justify-content:center;font-size:17px}
+.pv-row b{font-size:13px;display:block}
+.pv-row small{font-size:11px;color:var(--ink-2)}
+.pv-badge{margin-top:14px;text-align:center;font-size:12px;color:#1f9e6e;font-weight:800}
+
+.cta{background:radial-gradient(ellipse at 50% 0%,#1c2745,#0b1020 62%,#080c18);color:#fff;text-align:center;padding:92px 0;position:relative;overflow:hidden;
+  border-top:1px solid rgba(233,182,74,.15)}
+.cta::before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;
+  background:radial-gradient(circle,rgba(233,182,74,.16),transparent 68%);left:50%;top:-300px;transform:translateX(-50%)}
+.cta .wrap{position:relative;z-index:2}
+.cta h2{font-size:42px;font-weight:900;margin-bottom:14px}
+.cta p{font-size:16px;color:#9fb0d0;margin-bottom:32px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.8}
+.cta .btn-main{margin:0 auto}
+.cta-note{font-size:12px;color:#7d8ca8;margin-top:20px}
+
+/* ============ 页脚 ============ */
+footer{background:#0f1622;color:#93a0b8;padding:40px 0}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
+footer .brand{color:#fff}
+footer .f-links{display:flex;gap:22px;font-size:13px}
+footer .f-links a{color:#93a0b8;transition:color .2s}
+footer .f-links a:hover{color:#fff}
+.disc{width:100%;font-size:11.5px;color:#5f6d86;line-height:1.7;border-top:1px solid #1e2838;padding-top:18px;margin-top:8px}
+
+/* ============ 响应式 ============ */
+@media(max-width:1100px){
+  .hero .wrap{grid-template-columns:1fr;gap:48px;text-align:center}
+  .hero-badges,.hero-actions{justify-content:center}
+  .hero .lead{margin:0 auto}
+  .hero-stage{margin:0 auto}
+}
+@media(max-width:980px){
+  .scene-grid{grid-template-columns:repeat(3,1fr)}
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:780px){
+  .nav-links{display:none}
+  .hero{padding:110px 0 70px}
+  .hero .wrap{grid-template-columns:1fr;gap:44px;text-align:center}
+  .hero-badges,.hero-actions{justify-content:center}
+  .hero .lead{margin:0 auto}
+  .hero-stage{zoom:.8}
+  .stats .wrap{grid-template-columns:1fr 1fr;gap:24px 0}
+  .stat:nth-child(2)::after{display:none}
+  .alarm-sec .wrap,.privacy .wrap{grid-template-columns:1fr;gap:40px}
+  .life-stage{grid-template-columns:1fr}
+  .vp-grid{grid-template-columns:1fr}
+  section{padding:64px 0}
+  .sec-head h2,.alarm-copy h2,.cta h2{font-size:30px}
+  .hero h1{font-size:40px}
+}
+@media(max-width:560px){
+  .scene-grid{grid-template-columns:1fr 1fr}
+  .feat-grid{grid-template-columns:1fr}
+  .view-tabs{gap:6px}
+  .view-tab{padding:9px 14px;font-size:12.5px}
+  .life-picker,.life-detail{padding:22px}
+  .hero-stage{zoom:.56}
+  .hero h1{font-size:36px}
+}
+</style>
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <div class="brand">
+      <span class="logo"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M9.55 17.6l-4.3-4.3 1.4-1.4 2.9 2.9 6.8-6.8 1.4 1.4z"/></svg></span>
+      人生规划
+    </div>
+    <div class="nav-links">
+      <a href="#rpg">怎么玩</a>
+      <a href="#roster">角色图鉴</a>
+      <a href="#alarm">提醒弹窗</a>
+      <a href="#views">多视图</a>
+      <a href="#life">导入人生</a>
+    </div>
+    <a class="nav-cta" data-dl-main href="#">下载 APP</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="stars"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="hero-tag"><span class="dot"></span>人生 RPG · 把成长玩成一场通关游戏</div>
+      <h1>你的人生，<br>值得一个<span class="hl gold-txt">攻略</span></h1>
+      <div class="slogan">选一个想成为的人，把他的日子，活成你的关卡。</div>
+      <p class="lead">这不是一款冷冰冰的待办工具，而是一场<b>人生角色扮演游戏</b>：挑选人生剧本、接下每日任务、打卡升级、集齐成就。齐天大圣、玉皇大帝、高考学霸、考证达人……从神话到现实，<b>12 种人生，任你体验</b>。</p>
+      <div class="hero-badges">
+        <span>🎮 12 位人生角色</span>
+        <span>⚡ 关卡式每日任务</span>
+        <span>🏆 段位 · 成就系统</span>
+        <span>🔔 系统级全屏提醒</span>
+        <span>🔒 数据只在你手机</span>
+      </div>
+      <div class="hero-actions">
+        <a class="btn-main" data-dl-main href="#">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+          开始游戏 · 下载 <span data-dl-version>v4.5</span>
+        </a>
+        <a class="btn-ghost" href="#rpg">先看看怎么玩 →</a>
+      </div>
+      <div class="hero-note">安卓 8.0 及以上 · <span data-dl-size>约 6 MB</span> · 免费版即可开局 · 安装提示「未知来源」请允许</div>
+    </div>
+
+    <!-- 双端真实画面动态演示：电脑 + 手机同步轮播所有功能 -->
+    <div class="hero-stage">
+      <div class="demo-tag desk-tag"><span class="pulse-dot"></span><div>电脑端<small>一目了然</small></div></div>
+      <div class="desk">
+        <div class="desk-bar"><i></i><i></i><i></i><div class="desk-url">🔒 life-plan · 人生规划</div></div>
+        <div class="desk-body">
+          <img class="desk-shot on" data-shot="desk" data-i="0" src="landing-shots/d_list.png" alt="电脑端今天视图">
+          <img class="desk-shot" data-shot="desk" data-i="1" src="landing-shots/d_kanban.png" alt="">
+          <img class="desk-shot" data-shot="desk" data-i="2" src="landing-shots/d_calendar.png" alt="">
+          <img class="desk-shot" data-shot="desk" data-i="3" src="landing-shots/d_timeline.png" alt="">
+          <img class="desk-shot" data-shot="desk" data-i="4" src="landing-shots/d_matrix.png" alt="">
+          <img class="desk-shot" data-shot="desk" data-i="5" src="landing-shots/d_pomodoro.png" alt="">
+          <img class="desk-shot" data-shot="desk" data-i="6" src="landing-shots/d_habits.png" alt="">
+          <img class="desk-shot" data-shot="desk" data-i="7" src="landing-shots/d_countdown.png" alt="">
+          <img class="desk-shot" data-shot="desk" data-i="8" src="landing-shots/d_life.png" alt="">
+        </div>
+      </div>
+      <div class="demo-tag phone-tag"><span class="pulse-dot"></span><div>手机端<small>随时随地</small></div></div>
+      <div class="phone">
+        <div class="phone-screen">
+          <img class="phone-shot on" data-shot="phone" data-i="0" src="landing-shots/m_list.png" alt="手机端今天视图">
+          <img class="phone-shot" data-shot="phone" data-i="1" src="landing-shots/m_kanban.png" alt="">
+          <img class="phone-shot" data-shot="phone" data-i="2" src="landing-shots/m_calendar.png" alt="">
+          <img class="phone-shot" data-shot="phone" data-i="3" src="landing-shots/m_timeline.png" alt="">
+          <img class="phone-shot" data-shot="phone" data-i="4" src="landing-shots/m_matrix.png" alt="">
+          <img class="phone-shot" data-shot="phone" data-i="5" src="landing-shots/m_pomodoro.png" alt="">
+          <img class="phone-shot" data-shot="phone" data-i="6" src="landing-shots/m_habits.png" alt="">
+          <img class="phone-shot" data-shot="phone" data-i="7" src="landing-shots/m_countdown.png" alt="">
+          <img class="phone-shot" data-shot="phone" data-i="8" src="landing-shots/m_life.png" alt="">
+        </div>
+      </div>
+      <div class="view-name" id="demoViewName">今天 · 任务清单</div>
+      <div class="demo-ctrl">
+        <button id="demoPrev" title="上一个视图" aria-label="上一个">‹</button>
+        <button id="demoPlay" class="playpause" title="暂停自动播放" aria-label="暂停/播放">❚❚</button>
+        <button id="demoNext" title="下一个视图" aria-label="下一个">›</button>
+        <span class="demo-hint">点设备/圆点也可切换</span>
+      </div>
+      <div class="view-dots" id="demoDots"></div>
+    </div>
+  </div>
+</header>
+
+<!-- 数据条 -->
+<div class="stats">
+  <div class="wrap">
+    <div class="stat reveal"><div class="num"><span class="cnt" data-to="12">0</span><span class="u"> 位</span></div><div class="lbl">人生角色可选</div></div>
+    <div class="stat reveal"><div class="num"><span class="cnt" data-to="8">0</span><span class="u"> 大</span></div><div class="lbl">人生剧本分类</div></div>
+    <div class="stat reveal"><div class="num"><span class="cnt" data-to="11">0</span><span class="u"> 种</span></div><div class="lbl">效率视图</div></div>
+    <div class="stat reveal"><div class="num"><span class="cnt" data-to="180">0</span><span class="u"> 天</span></div><div class="lbl">闹钟自动预排</div></div>
+  </div>
+</div>
+
+<!-- 人生 RPG：怎么玩 -->
+<section class="rpg-dark rpg-intro" id="rpg">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="rpg-kicker">HOW TO PLAY · 怎么玩</div>
+      <h2>把人生，玩成一场<span class="gold-txt">通关游戏</span></h2>
+      <p>普通人靠意志力硬撑，玩家靠机制上瘾。我们把"变好"这件事，拆成了人人都能上手的四步循环。</p>
+    </div>
+    <div class="rpg-flow">
+      <div class="rpg-step reveal"><div class="ic" data-n="1">🎴</div><h3>选角色</h3>
+        <p>从 12 位人生角色里挑一个想成为的——大圣、玉帝、学霸、考证人……像抽卡一样选你的下一段人生。</p>
+        <span class="eg">齐天大圣 · 高考学霸 · 哪吒</span></div>
+      <div class="rpg-step reveal"><div class="ic" data-n="2">📜</div><h3>接任务</h3>
+        <p>一键把他的作息、书单、每日动作导进来，变成你的每日任务。每个时段都写清"具体做什么、读哪本书"。</p>
+        <span class="eg">05:00 晨起吐纳 · 读《论语》</span></div>
+      <div class="rpg-step reveal"><div class="ic" data-n="3">⚡</div><h3>闯关升级</h3>
+        <p>打勾、打卡、专注计时，就是通关。经验值涨、连击数涨，看着进度条往前推，爽感和游戏一模一样。</p>
+        <span class="eg">连击 7 天 · 经验 +120</span></div>
+      <div class="rpg-step reveal"><div class="ic" data-n="4">🏆</div><h3>集成就</h3>
+        <p>境界从"凡人"升到"大圣""天神"，成就徽章一个点亮。养成习惯这件事，第一次变得让人上瘾。</p>
+        <span class="eg">凡人 → 行者 → 大圣 → 天神</span></div>
+    </div>
+    <div class="rpg-hook reveal">
+      <div class="q">"很多人玩游戏废寝忘食，<em>为什么不能把人生也玩成这样？</em>"</div>
+      <div class="sub">游戏让人上瘾，是因为它有目标、有反馈、有成长。我们把这套机制，装进了你的每一天。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 核心场景 -->
+<section class="scenes" id="scenes">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">CORE FEATURES</div>
+      <h2>覆盖生活与工作的每个角落</h2>
+      <p>从快速收集一句想法，到规划一整年的人生——需要的能力，这里都有。</p>
+    </div>
+    <div class="scene-grid">
+      <div class="scene-card reveal">
+        <div class="scene-visual list"><div class="mini-list">
+          <div class="r"><span class="c on"></span><span class="ln"></span></div>
+          <div class="r"><span class="c"></span><span class="ln s"></span></div>
+          <div class="r"><span class="c on"></span><span class="ln"></span></div>
+          <div class="r"><span class="c"></span><span class="ln s"></span></div>
+        </div></div>
+        <div class="scene-body"><h3>待办清单</h3><p>管理你生活中的一切。清单、标签、优先级、今天/明天/最近 7 天，一眼掌握该做什么。</p></div>
+      </div>
+      <div class="scene-card reveal">
+        <div class="scene-visual cal"><div class="mini-cal">
+          <div class="hd">2026 年 11 月</div>
+          <div class="g" id="miniCalGrid"></div>
+        </div></div>
+        <div class="scene-body"><h3>日历视图</h3><p>轻松规划日程安排。年、月、周、日、日程、多日多周视图随心切换，闲忙一目了然。</p></div>
+      </div>
+      <div class="scene-card reveal">
+        <div class="scene-visual pomo"><div class="mini-pomo"></div></div>
+        <div class="scene-body"><h3>番茄专注</h3><p>记录时间保持专注。25 分钟心流工作法，还能关联任务，专注与待办无缝衔接。</p></div>
+      </div>
+      <div class="scene-card reveal">
+        <div class="scene-visual habit"><div class="mini-habit" id="miniHabit"></div></div>
+        <div class="scene-body"><h3>习惯打卡</h3><p>用打卡培养良好习惯。连续天数、达标率、热力回顾，让坚持看得见。</p></div>
+      </div>
+      <div class="scene-card reveal">
+        <div class="scene-visual count"><div class="mini-count"><div class="heart">🎂</div><div class="d">还有 213 天</div><div class="t">家人的生日</div></div></div>
+        <div class="scene-body"><h3>倒数纪念日</h3><p>记录每个重要时刻。生日、纪念日、考试倒计时，公历农历都能提醒。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 招牌功能：全屏提醒弹窗 -->
+<section class="alarm-sec" id="alarm">
+  <div class="wrap">
+    <div class="alarm-copy reveal">
+      <div class="sec-kicker">⭐ 招牌功能</div>
+      <h2>到点就弹窗<br>像系统闹钟一样可靠</h2>
+      <p class="desc">闹钟响起时不再只是悄悄一条通知——而是<strong>全屏弹出提醒</strong>，锁屏、应用外都能看到，自动点亮屏幕。就像原版滴答清单那样，四个按钮交给你在当下决定。</p>
+      <div class="alarm-feats">
+        <div class="alarm-feat"><div class="f-ic">✓</div><b>完成</b><small>一键勾选任务，今天这次不再提醒</small></div>
+        <div class="alarm-feat"><div class="f-ic">⏰</div><b>稍后提醒</b><small>静默 9 分钟后再响，APP 没开也照常</small></div>
+        <div class="alarm-feat"><div class="f-ic">◷</div><b>开始专注</b><small>直接打开番茄钟，关联这条任务</small></div>
+        <div class="alarm-feat"><div class="f-ic">⊘</div><b>忽略</b><small>只停铃不完成，逾期仍会提醒你</small></div>
+      </div>
+    </div>
+    <div class="alarm-demo reveal">
+      <div class="ring-wrap"><div class="ring-screen">
+        <div class="ring-clock">07:00</div>
+        <div class="ring-date">11月19日 星期四</div>
+        <div class="ring-wave"></div><div class="ring-wave w2"></div><div class="ring-wave w3"></div>
+        <div class="ring-bell">🔔</div>
+        <div class="ring-card">
+          <div class="tag">🔔 任务提醒</div>
+          <div class="ttl">起床做早餐</div>
+          <div class="bd">先生早安～该起床做早餐啦，先喝杯温水暖暖身子</div>
+          <div class="hr"></div>
+          <div class="mt">计划提醒 · 07:00</div>
+        </div>
+        <div class="ring-btns">
+          <div class="rb ghost">忽略</div>
+          <div class="rb ghost">开始专注</div>
+          <div class="rb ghost small">稍后提醒 (9分钟)</div>
+          <div class="rb primary">完成</div>
+        </div>
+      </div></div>
+      <div class="alarm-note">↑ 点「响铃测试」即可在真机上预览这个弹窗</div>
+    </div>
+  </div>
+</section>
+
+<!-- 多视图 -->
+<section class="views" id="views">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">MULTIPLE VIEWS</div>
+      <h2>换个角度，掌控你的时间</h2>
+      <p>同一份数据，用最顺手的方式查看。点击切换，感受不同视图。</p>
+    </div>
+    <div class="view-tabs reveal">
+      <div class="view-tab on" data-view="cal">📅 日历</div>
+      <div class="view-tab" data-view="kanban">▦ 看板</div>
+      <div class="view-tab" data-view="timeline">◫ 时间线</div>
+      <div class="view-tab" data-view="matrix">◈ 四象限</div>
+    </div>
+    <div class="view-stage reveal">
+      <!-- 日历 -->
+      <div class="view-pane on" data-pane="cal">
+        <div class="vp-grid">
+          <div class="mock-window"><div class="mw-bar"><i></i><i></i><i></i></div><div class="mw-body"><div class="mk-cal" id="mkCal"></div></div></div>
+          <div><h4>日历视图</h4><div class="vp-sub">把安排放进真实的时间坐标</div>
+            <ul class="vp-points"><li><b>9 种视图</b>：年/月/周/日/日程/多日/多周</li><li><b>闲忙清晰</b>：时间轴上知晓每段安排</li><li><b>节假日</b>：法定假日与调休自动标注</li><li>点击日期即可快速新建任务</li></ul>
+          </div>
+        </div>
+      </div>
+      <!-- 看板 -->
+      <div class="view-pane" data-pane="kanban">
+        <div class="vp-grid">
+          <div class="mock-window"><div class="mw-bar"><i></i><i></i><i></i></div><div class="mw-body"><div class="mk-col">
+            <div class="col"><h6>今天</h6><div class="chip">早餐</div><div class="chip">送孩子</div></div>
+            <div class="col"><h6>明天</h6><div class="chip v">周报</div></div>
+            <div class="col"><h6>之后</h6><div class="chip o">缴电费</div><div class="chip">体检</div></div>
+          </div></div></div>
+          <div><h4>看板视图</h4><div class="vp-sub">按状态/清单/标签/日期自由分组</div>
+            <ul class="vp-points"><li><b>四种分组</b>：优先级、清单、标签、日期</li><li><b>拖动卡片</b>即可改状态或分组</li><li>今天/明天/之后自动归类</li><li>已逾期单独成列，红色高亮</li></ul>
+          </div>
+        </div>
+      </div>
+      <!-- 时间线 -->
+      <div class="view-pane" data-pane="timeline">
+        <div class="vp-grid">
+          <div class="mock-window"><div class="mw-bar"><i></i><i></i><i></i></div><div class="mw-body"><div class="mk-tl">
+            <div class="line"></div>
+            <div class="ev"><span class="t">07:00</span><span class="box">起床做早餐</span></div>
+            <div class="ev"><span class="t">09:30</span><span class="box v">团队周会</span></div>
+            <div class="ev"><span class="t">12:00</span><span class="box">午餐</span></div>
+            <div class="ev"><span class="t">19:00</span><span class="box v">健身</span></div>
+          </div></div></div>
+          <div><h4>时间线视图</h4><div class="vp-sub">像日程表一样顺着时间往下看</div>
+            <ul class="vp-points"><li><b>连续时间轴</b>，全天安排一目了然</li><li><b>周/月</b>两种粒度切换</li><li>重复闹钟在每个发生日自动展开</li><li>拖动即可调整时间</li></ul>
+          </div>
+        </div>
+      </div>
+      <!-- 四象限 -->
+      <div class="view-pane" data-pane="matrix">
+        <div class="vp-grid">
+          <div class="mock-window"><div class="mw-bar"><i></i><i></i><i></i></div><div class="mw-body"><div class="mk-mtx">
+            <div class="q a"><h6>重要 · 紧急</h6><div class="chip">交报表</div></div>
+            <div class="q b"><h6>重要 · 不紧急</h6><div class="chip">学英语</div><div class="chip">健身</div></div>
+            <div class="q c"><h6>不重要 · 紧急</h6><div class="chip">取快递</div></div>
+            <div class="q d"><h6>不重要 · 不紧急</h6><div class="chip">刷剧</div></div>
+          </div></div></div>
+          <div><h4>四象限</h4><div class="vp-sub">重要与紧急，帮你分清轻重缓急</div>
+            <ul class="vp-points"><li><b>自动归类</b>：按优先级和日期判定象限</li><li><b>拖动任务</b>跨象限自动改属性</li><li>一键在当前象限新建任务</li><li>聚焦真正重要的事</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 导入人生 -->
+<section class="life" id="life">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="rpg-kicker" style="justify-content:center">LIVE A LIFE · 沉浸扮演</div>
+      <h2>一键导入，<span class="gold-txt">住进他的日子里</span></h2>
+      <p>选好角色，点一下"导入"，他的作息、修行、书单、每日动作就变成你的任务。每个时段都写清"具体做什么、读哪本书"，还配沉浸阅读器和同款好物。体验前自动备份，随时能回到你自己的生活。</p>
+    </div>
+    <div class="life-stage reveal">
+      <div class="life-picker">
+        <h3>🎴 选一张人生剧本</h3>
+        <div class="lp-sub">点一个角色，看他的一天是怎么排的</div>
+        <div class="life-char on" data-char="sun"><div class="life-ava sun">🐒</div><div><b>齐天大圣 · 孙悟空</b><small>神话修行 · 自律范本</small></div></div>
+        <div class="life-char" data-char="zg"><div class="life-ava zg">🪭</div><div><b>诸葛武侯 · 诸葛亮</b><small>名人传记 · 谋略日程</small></div></div>
+        <div class="lp-tip">💡 每本剧本 ¥1 单独解锁（软件 ¥1 买断功能，不含剧本）。含作息 / 修行 / 书单 / 每日动作 / 沉浸阅读；导入前自动备份。激活码与设备绑定，重装系统需重新购买。</div>
+      </div>
+      <div class="life-detail" id="lifeDetail">
+        <div class="life-hero">
+          <div class="big-ava life-ava sun" id="lifeBigAva">🐒</div>
+          <div><h3 id="lifeName">齐天大圣 · 孙悟空</h3><p id="lifeDesc">每日修行、练功与大事记</p></div>
+        </div>
+        <div class="lbl">一日作息</div>
+        <div class="life-sched" id="lifeSched"></div>
+        <div class="lbl">近 14 天修行进度</div>
+        <div class="life-bars" id="lifeBars"></div>
+        <div class="life-price">
+          <div class="p"><b>¥1</b> <small>单包买断</small></div>
+          <button data-dl-main>下载 APP 体验 →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 角色图鉴 · 抽卡墙 -->
+<section class="rpg-dark roster" id="roster">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="rpg-kicker">CHARACTER ROSTER · 角色图鉴</div>
+      <h2>12 种人生，<span class="gold-txt">你想活成哪一种？</span></h2>
+      <p>从脚踏实地的备考达人，到神话里的天庭诸神——每条人生都是一本可以导入的"剧本"。挑一个，开始你的角色扮演。</p>
+    </div>
+    <div class="roster-tabs reveal" id="rosterTabs">
+      <div class="roster-tab on" data-f="all">✨ 全部角色</div>
+      <div class="roster-tab" data-f="deity">⚡ 天庭神谱</div>
+      <div class="roster-tab" data-f="myth">🌟 神话修行</div>
+      <div class="roster-tab" data-f="study">🎓 实用进阶</div>
+      <div class="roster-tab" data-f="hero">📜 名人榜样</div>
+    </div>
+    <div class="roster-grid" id="rosterGrid"></div>
+    <div class="roster-note reveal">每本角色剧本 <b>¥1</b> 单独解锁 · 软件功能 ¥1 买断（不含剧本）· 内容含完整作息 / 书单 / 每日动作 / 沉浸阅读</div>
+  </div>
+</section>
+
+<!-- 段位系统 -->
+<section class="rpg-dark rank-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="rpg-kicker">RANKS · 境界段位</div>
+      <h2>从凡人，一路修成<span class="gold-txt">自己的天神</span></h2>
+      <p>每一次打卡都在积累经验。坚持得越久，境界越高——让"变好"这件事，像升级一样让人停不下来。</p>
+    </div>
+    <div class="rank-track reveal">
+      <div class="rank-node"><div class="rank-badge">🌱</div><div class="rn">凡人</div><div class="rd">下载即开局</div></div>
+      <div class="rank-node"><div class="rank-badge">📖</div><div class="rn">学徒</div><div class="rd">打卡 7 天</div></div>
+      <div class="rank-node"><div class="rank-badge">🛡️</div><div class="rn">行者</div><div class="rd">打卡 30 天</div></div>
+      <div class="rank-node"><div class="rank-badge">⚔️</div><div class="rn">大圣</div><div class="rd">打卡 100 天</div></div>
+      <div class="rank-node god"><div class="rank-badge">👑</div><div class="rn">天神</div><div class="rd">打卡 365 天</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 丰富功能网格 -->
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">AND MUCH MORE</div>
+      <h2>丰富多样的功能，满足个性化需求</h2>
+      <p>把那些真正提升效率的小细节，都替你想好了。</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal"><div class="fi">🔔</div><h4>持续响铃</h4><p>到点一直响到你处理为止，重要的事绝不遗漏。</p></div>
+      <div class="feat-card reveal"><div class="fi">💬</div><h4>微信提醒</h4><p>Webhook 推送到微信/企业微信，APP 提醒双保险。</p></div>
+      <div class="feat-card reveal"><div class="fi">📍</div><h4>位置提醒</h4><p>到达指定地点自动提醒，适合接送、办事场景。</p></div>
+      <div class="feat-card reveal"><div class="fi">🌙</div><h4>农历与节假日</h4><p>农历生日、法定假日、调休补班都能准确提醒。</p></div>
+      <div class="feat-card reveal"><div class="fi">🧩</div><h4>桌面小组件</h4><p>今日待办与倒数日直接显示在桌面，抬眼就看见。</p></div>
+      <div class="feat-card reveal"><div class="fi">📊</div><h4>数据统计</h4><p>完成趋势、专注时长、习惯达标率，进度看得见。</p></div>
+      <div class="feat-card reveal"><div class="fi">🔄</div><h4>灵活重复</h4><p>每日/周/月/年、工作日、按次完成，规则随心设。</p></div>
+      <div class="feat-card reveal"><div class="fi">🎨</div><h4>多主题外观</h4><p>多种配色主题随心切换，打造属于你的效率空间。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 隐私 -->
+<section class="privacy">
+  <div class="wrap">
+    <div class="reveal">
+      <h2>你的数据，只属于你</h2>
+      <p>不需要注册账号，不上传云端。所有任务、清单、习惯和设置都安安稳稳地存在你自己的设备里。</p>
+      <ul>
+        <li>无需联网即可使用全部核心功能</li>
+        <li>支持 JSON/CSV/ICS 导入导出，换机可迁移</li>
+        <li>导入人生包前自动备份，随时一键还原</li>
+        <li>没有广告，没有埋点，没有隐私泄露</li>
+      </ul>
+    </div>
+    <div class="privacy-visual reveal">
+      <div class="pv-row"><div class="ic">📱</div><div><b>本地存储</b><small>数据保存在你的手机</small></div></div>
+      <div class="pv-row"><div class="ic">📦</div><div><b>自由导出</b><small>JSON / CSV / ICS 全支持</small></div></div>
+      <div class="pv-row"><div class="ic">🛡️</div><div><b>自动备份</b><small>体验人生包可一键恢复</small></div></div>
+      <div class="pv-badge">✓ 隐私可控 · 用得安心</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap reveal">
+    <div class="rpg-kicker" style="justify-content:center">PLAYER ONE · 玩家一号</div>
+    <h2>你的第一关，<span class="gold-txt">现在开始</span></h2>
+    <p>软件 ¥1 买断全部功能（不含人生剧本）；想体验哪段人生，再单独解锁对应角色剧本。都是一杯奶茶的钱，换来一个可能改变你的习惯。</p>
+    <a class="btn-main" data-dl-main href="#">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+      领取角色 · 开始游戏 <span data-dl-version>v4.5</span>
+    </a>
+    <div class="cta-note">免费版即可开局 · 软件功能 ¥1 买断 · 人生剧本每本另购 ¥1 · 数据只在你手机 · guyanwei 独立开发</div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <span class="logo" style="width:28px;height:28px;border-radius:8px"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="#fff" d="M9.55 17.6l-4.3-4.3 1.4-1.4 2.9 2.9 6.8-6.8 1.4 1.4z"/></svg></span>
+      人生规划
+    </div>
+    <div class="f-links"><a href="#rpg">怎么玩</a><a href="#roster">角色图鉴</a><a href="#alarm">提醒弹窗</a><a href="#life">导入人生</a><a data-dl-main href="#">下载</a></div>
+    <p class="disc">本项目在界面与交互上参考滴答清单（TickTick）的产品设计，属于个人非官方实现，与 TickTick 官方团队无关联，不使用其服务器或账号体系。所有用户数据仅保存在本地设备。</p>
+  </div>
+</footer>
+
+<script>
+/* ===== 下载配置：与主项目主页保持一致，更新版本只改这里 ===== */
+window.DOWNLOAD_CONFIG = {
+  version: 'v4.5',
+  size: '约 6 MB',
+  url: 'https://github.com/guyanwei/life-plan-app/releases/download/v4.5/life-plan.apk',
+  backup: 'https://raw.githubusercontent.com/guyanwei/life-plan-app/main/life-plan.apk'
+};
+(function(){
+  document.querySelectorAll('[data-dl-main]').forEach(function(a){ a.href = window.DOWNLOAD_CONFIG.url; });
+  document.querySelectorAll('[data-dl-backup]').forEach(function(a){
+    if(window.DOWNLOAD_CONFIG.backup){ a.href = window.DOWNLOAD_CONFIG.backup; a.style.display=''; }
+  });
+  document.querySelectorAll('[data-dl-version]').forEach(function(e){ e.textContent = window.DOWNLOAD_CONFIG.version; });
+  document.querySelectorAll('[data-dl-size]').forEach(function(e){ e.textContent = window.DOWNLOAD_CONFIG.size; });
+})();
+
+/* 导航滚动阴影 */
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY > 10); });
+
+/* 滚动渐入 */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+/* 数字滚动 */
+var ioNum = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(!en.isIntersecting) return;
+    var el = en.target, to = +el.dataset.to, start = null, dur = 1400;
+    function step(ts){ if(!start) start = ts; var p = Math.min((ts-start)/dur,1);
+      el.textContent = Math.round(to * (1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); else el.textContent = to; }
+    requestAnimationFrame(step); ioNum.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('.cnt').forEach(function(el){ ioNum.observe(el); });
+
+/* Hero 双端真实画面轮播：电脑 + 手机同步切换，全方位展示所有功能 */
+(function(){
+  var VIEWS = [
+    {n:'今天 · 任务清单'}, {n:'看板 · 分组管理'}, {n:'日历 · 月视图'},
+    {n:'时间线 · 日程流'}, {n:'四象限 · 优先级'}, {n:'番茄 · 专注计时'},
+    {n:'习惯 · 打卡追踪'}, {n:'倒数 · 纪念日'}, {n:'导入人生 · 人生包'}
+  ];
+  var deskShots = document.querySelectorAll('.desk-shot');
+  var phoneShots = document.querySelectorAll('.phone-shot');
+  var dotsBox = document.getElementById('demoDots');
+  var nameEl = document.getElementById('demoViewName');
+  var idx = 0, timer = null, playing = true;
+  var playBtn = document.getElementById('demoPlay');
+  // 生成指示灯
+  VIEWS.forEach(function(v,i){
+    var d = document.createElement('i');
+    if(i===0) d.className='on';
+    d.title = v.n;
+    d.addEventListener('click', function(){ manual(i); });
+    dotsBox.appendChild(d);
+  });
+  var dots = dotsBox.querySelectorAll('i');
+  function go(i){
+    idx = (i + VIEWS.length) % VIEWS.length;
+    deskShots.forEach(function(el,k){ el.classList.toggle('on', k===idx); });
+    phoneShots.forEach(function(el,k){ el.classList.toggle('on', k===idx); });
+    dots.forEach(function(d,k){ d.classList.toggle('on', k===idx); });
+    if(nameEl) nameEl.textContent = VIEWS[idx].n;
+  }
+  function play(){
+    if(timer) clearInterval(timer);
+    timer = setInterval(function(){ go(idx+1); }, 3000);
+    playing = true; if(playBtn){ playBtn.textContent='❚❚'; playBtn.title='暂停自动播放'; }
+  }
+  function pause(){
+    if(timer) clearInterval(timer); timer=null;
+    playing = false; if(playBtn){ playBtn.textContent='▶'; playBtn.title='继续自动播放'; }
+  }
+  // 手动切换（保留自动播放继续运行；点箭头/设备后重新开始计时）
+  function manual(i){ go(i); if(playing) play(); }
+  document.getElementById('demoPrev').addEventListener('click', function(){ manual(idx-1); });
+  document.getElementById('demoNext').addEventListener('click', function(){ manual(idx+1); });
+  if(playBtn) playBtn.addEventListener('click', function(){ playing ? pause() : play(); });
+  // 点击电脑/手机 mockup 切到下一视图
+  document.querySelector('.desk').addEventListener('click', function(){ manual(idx+1); });
+  document.querySelector('.phone').addEventListener('click', function(){ manual(idx+1); });
+  play();
+})();
+
+/* 小日历网格生成 */
+function fillCal(id, days, today, evts, cls){
+  var g = document.getElementById(id); if(!g) return; var h='';
+  for(var i=1;i<=days;i++){
+    var c = 'd';
+    if(i===today) c += ' today';
+    else if(evts.indexOf(i)>-1) c += ' e';
+    h += '<div class="'+c+'">'+i+(evts.indexOf(i)>-1?'<div class="pip"></div>':'')+'</div>';
+  }
+  g.innerHTML = h;
+}
+fillCal('miniCalGrid', 21, 12, [3,7,12,15,19]);
+fillCal('mkCal', 28, 12, [2,5,9,12,16,20,24]);
+
+/* 习惯格子 */
+(function(){
+  var h='', on=[1,2,3,5,6,7,8,9,11,12,13];
+  for(var i=0;i<14;i++) h += '<i class="'+(on.indexOf(i)>-1?'on':'')+'"></i>';
+  document.getElementById('miniHabit').innerHTML = h;
+})();
+
+/* 多视图 Tab 切换 */
+document.querySelectorAll('.view-tab').forEach(function(tab){
+  tab.addEventListener('click', function(){
+    document.querySelectorAll('.view-tab').forEach(function(t){ t.classList.remove('on'); });
+    document.querySelectorAll('.view-pane').forEach(function(p){ p.classList.remove('on'); });
+    tab.classList.add('on');
+    var pane = document.querySelector('[data-pane="'+tab.dataset.view+'"]');
+    if(pane) pane.classList.add('on');
+  });
+});
+
+/* 导入人生：角色数据与切换 */
+var LIFE = {
+  sun:{ name:'齐天大圣 · 孙悟空', desc:'修行与自律的极致范本', ava:'🐒',
+    sched:[[5,'晨起吐纳'],[7,'舞棒练功'],[9,'诵经静心'],[12,'云游采果'],[18,'打坐修行'],[21,'复盘功课']],
+    bars:[80,60,95,40,70,100,55,85,30,90,75,100,50,95] },
+  zg:{ name:'诸葛武侯 · 诸葛亮', desc:'运筹帷幄的日程管理', ava:'🪭',
+    sched:[[5,'晨读兵书'],[7,'梳理军务'],[9,'议事决策'],[12,'品茶思谋'],[16,'巡视营寨'],[20,'灯下复盘']],
+    bars:[70,90,60,85,95,50,80,100,65,75,90,55,85,100] }
+};
+function renderLife(key){
+  var d = LIFE[key]; if(!d) return;
+  document.getElementById('lifeName').textContent = d.name;
+  document.getElementById('lifeDesc').textContent = d.desc;
+  var big = document.getElementById('lifeBigAva'); big.textContent = d.ava;
+  big.className = 'big-ava life-ava ' + (key==='sun'?'sun':'zg');
+  document.getElementById('lifeSched').innerHTML = d.sched.map(function(r){
+    return '<div class="row"><span class="tm">'+String(r[0]).padStart(2,'0')+':00</span><span class="bar" style="width:'+(30+r[0]*1.5)+'px"></span><span class="nm">'+r[1]+'</span></div>';
+  }).join('');
+  document.getElementById('lifeBars').innerHTML = d.bars.map(function(v){
+    return '<i class="'+(v<50?'low':'')+'" style="height:'+v+'%"></i>';
+  }).join('');
+}
+document.querySelectorAll('.life-char').forEach(function(c){
+  c.addEventListener('click', function(){
+    document.querySelectorAll('.life-char').forEach(function(x){ x.classList.remove('on'); });
+    c.classList.add('on'); renderLife(c.dataset.char);
+  });
+});
+renderLife('sun');
+
+/* 人生包自动轮播 */
+var lifeKeys = ['sun','zg'], li = 0;
+setInterval(function(){
+  li = (li+1) % lifeKeys.length;
+  var key = lifeKeys[li];
+  document.querySelectorAll('.life-char').forEach(function(x){ x.classList.toggle('on', x.dataset.char===key); });
+  renderLife(key);
+}, 4500);
+
+/* ===== 角色图鉴墙：12 位人生角色 ===== */
+var ROSTER = [
+  {id:'nezha',      name:'哪吒 · 风火轮',    sub:'我命由我不由天，把每天燃成热血闯关', rare:'SSR', realm:'热血', f:'deity', img:'portraits/nezha-3d.jpg',    c1:'#7a2a1e',c2:'#2a1420', tags:['神话','热血','成长']},
+  {id:'qitian-dasheng',name:'齐天大圣 · 悟空',sub:'七十二变与筋斗云，修行与自律的极致', rare:'SSR', realm:'斗战', f:'myth', img:'portraits/qitian-dasheng-3d.jpg',c1:'#8a5a1e',c2:'#2a2014', tags:['神话','修行','作息']},
+  {id:'yu-huang',   name:'玉皇大帝 · 凌霄',  sub:'三界 CEO 的统筹之道，把全局装进每天', rare:'SSR', realm:'天帝', f:'deity', img:'portraits/yu-huang-3d.jpg',    c1:'#6b5418',c2:'#1f1c12', tags:['神话','管理','格局']},
+  {id:'taishang-laojun',name:'太上老君 · 八卦炉',sub:'慢火炼丹的极致专注，把一件事炼透', rare:'SR',  realm:'道祖', f:'deity', img:'portraits/taishang-laojun-3d.jpg',c1:'#3a4a52',c2:'#161e24', tags:['神话','专注','养生']},
+  {id:'er-lang-shen',name:'二郎神 · 天眼',    sub:'看得清、下得手、收得住的执行力',     rare:'SR',  realm:'战神', f:'deity', img:'portraits/er-lang-shen-3d.jpg',   c1:'#234a6b',c2:'#141e2a', tags:['神话','执行','纪律']},
+  {id:'zhuge-liang',name:'诸葛武侯 · 诸葛亮',sub:'鞠躬尽瘁，隆中一对到五丈原的清醒',   rare:'SR',  realm:'谋士', f:'hero', img:'portraits/zhuge-liang-3d.jpg',    c1:'#1e5a44',c2:'#122a22', tags:['历史','谋略','作息']},
+  {id:'mao-zdong',  name:'青年毛泽东 · 苦读',sub:'一师五年半，把自律刻进日常',        rare:'SR',  realm:'求知', f:'hero', img:'portraits/mao-zdong-hd.jpg',      c1:'#6b2a22',c2:'#241416', tags:['名人','求学','苦读']},
+  {id:'zhou-enlai', name:'青年周恩来 · 南开',sub:'为中华之崛起而读书的那股韧劲',       rare:'SR',  realm:'修身', f:'hero', img:'portraits/zhou-enlai-hd.jpg',     c1:'#1e4a4a',c2:'#122424', tags:['名人','求学','英文']},
+  {id:'gaokao-top', name:'高考学霸 · 百日冲刺',sub:'闹钟一响就起，错题当天整理，限时训练',rare:'R', realm:'冲刺',f:'study', emoji:'🎓',c1:'#5a2a7a',c2:'#201430', tags:['高考','学霸','冲刺']},
+  {id:'zaojia-shift',name:'在职备考 · 造价师',sub:'白天上班晚上学，把时间战打成胜仗',  rare:'R',  realm:'精进', f:'study', emoji:'📐',c1:'#1e4a6b',c2:'#12202e', tags:['职考','造价','在职']},
+  {id:'jianzao-shift',name:'在职备考 · 一建', sub:'实务案例手写六步，四科稳步推进',     rare:'R',  realm:'精进', f:'study', emoji:'🏗️',c1:'#7a4a1e',c2:'#2a2014', tags:['职考','建造','实务']},
+  {id:'english-master',name:'英语达人 · 百日精进',sub:'每天微量接触，胜过周末突击五小时',rare:'R', realm:'精进',f:'study', emoji:'🔤',c1:'#1e6b5a',c2:'#122a24', tags:['英语','语言','每日']}
+];
+function renderRoster(filter){
+  var grid=document.getElementById('rosterGrid'); if(!grid) return;
+  var list = ROSTER.filter(function(c){ return filter==='all' || c.f===filter; });
+  grid.innerHTML = list.map(function(c){
+    var port = c.img
+      ? '<img src="'+c.img+'" alt="'+c.name+'" loading="lazy">'
+      : '<span class="emoji">'+c.emoji+'</span>';
+    var glow = c.rare==='SSR' ? 'rgba(233,182,74,.45)' : (c.rare==='SR' ? 'rgba(150,110,240,.4)' : 'rgba(90,160,240,.35)');
+    return '<article class="hero-card '+c.rare.toLowerCase()+'" data-dl-main style="--c1:'+c.c1+';--c2:'+c.c2+';--glow:'+glow+'">'+
+      '<div class="hero-card-port">'+port+
+        '<span class="hero-rarity '+c.rare.toLowerCase()+'">'+c.rare+'</span>'+
+        '<span class="hero-realm">'+c.realm+'</span></div>'+
+      '<div class="hero-card-body"><h4>'+c.name+'</h4><div class="sub">'+c.sub+'</div>'+
+        '<div class="meta">'+c.tags.map(function(t){return '<span>'+t+'</span>';}).join('')+'</div></div></article>';
+  }).join('');
+  document.querySelectorAll('[data-dl-main]').forEach(function(a){ a.href=window.DOWNLOAD_CONFIG.url; });
+}
+renderRoster('all');
+document.querySelectorAll('.roster-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.roster-tab').forEach(function(t){t.classList.remove('on');});
+    tab.classList.add('on'); renderRoster(tab.dataset.f);
+  });
+});
+</script>
+</body>
+</html>
