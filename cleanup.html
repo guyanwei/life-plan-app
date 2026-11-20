@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4772FA">
+<title>清理注册码机残留 · 人生规划</title>
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:linear-gradient(160deg,#f7f9fd,#eef3ff);color:#1f2733;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px;box-sizing:border-box}
+  .card{background:#fff;border-radius:18px;box-shadow:0 12px 40px rgba(30,50,90,.12);padding:30px 30px 26px;max-width:560px;width:100%}
+  h1{font-size:21px;margin:0 0 4px}
+  .sub{font-size:13px;color:#8a95a8;margin:0 0 16px}
+  .status{background:#eaf7ef;border:1px solid #b7e4c7;color:#128a4b;border-radius:10px;padding:12px 14px;font-size:14px;font-weight:600;margin-bottom:14px;line-height:1.6}
+  .status.bad{background:#fff1f0;border-color:#ffc9c2;color:#c4321f}
+  .status.run{background:#eef3ff;border-color:#cdd9ff;color:#3457c9}
+  ul{font-size:13.5px;color:#5b6573;line-height:1.95;padding-left:20px;margin:8px 0 0}
+  b{color:#1f2733}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;background:#4772FA;color:#fff;font-size:15px;font-weight:700;padding:12px 22px;border-radius:11px;cursor:pointer;margin-top:16px;text-decoration:none;width:100%;box-sizing:border-box}
+  .btn:hover{background:#3a62e0}
+  .btn.ghost{background:#eef3ff;color:#3457c9;margin-top:9px}
+  .warn{background:#fff8e8;border:1px solid #ffd98a;border-radius:10px;padding:12px 14px;color:#8a5a00;font-size:13px;line-height:1.7;margin-top:16px}
+  #log{font:11px/1.7 ui-monospace,Menlo,Consolas,monospace;color:#8a95a8;margin-top:12px;word-break:break-all;min-height:16px}
+  .done-emoji{font-size:26px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="done-emoji">🧹</div>
+  <h1>清理"注册码机"残留</h1>
+  <p class="sub">人生规划 · 注册码机已下线，此页帮你清除本机残留缓存</p>
+
+  <div class="status run" id="status">正在自动清理，请稍候…</div>
+
+  <ul>
+    <li>注销残留的离线运行程序（Service Worker）</li>
+    <li>清空离线页面缓存（Cache Storage）</li>
+    <li>删除本机保存的注册码台账数据</li>
+  </ul>
+
+  <button class="btn" id="again" style="display:none">再清理一次</button>
+  <a class="btn ghost" href="./">返回人生规划主页</a>
+
+  <div class="warn" id="iconTip" style="display:none">
+    ⚠️ 如果你是把注册码机<b>添加到了手机桌面</b>才总能打开它：请长按桌面上的那个图标 → 移除/删除。这一步只能在你的手机桌面上手动做，网页无法代劳。删掉后它就不会再出现了。
+  </div>
+
+  <div id="log"></div>
+</div>
+
+<script>
+(async function(){
+  var status=document.getElementById('status');
+  var log=document.getElementById('log');
+  var lines=[];
+  function say(s){lines.push(s);log.textContent=lines.join('\n');}
+  function done(ok){
+    status.className='status'+(ok?'':' bad');
+    status.innerHTML=ok
+      ? '✅ 清理完成！本机已无注册码机残留。'
+      : '⚠️ 部分项目未能自动清除，请按下方提示手动处理。';
+  }
+  var ok=true;
+  try{
+    // 1) 注销所有 Service Worker
+    if('serviceWorker' in navigator && navigator.serviceWorker.getRegistrations){
+      var regs=await navigator.serviceWorker.getRegistrations().catch(function(){return [];});
+      for(var i=0;i<regs.length;i++){ try{ await regs[i].unregister(); say('已注销 SW: '+regs[i].scope); }catch(e){ok=false;say('SW 注销失败: '+e);} }
+      if(!regs.length) say('无残留 Service Worker');
+    }
+  }catch(e){ ok=false; say('SW 检查失败: '+e); }
+  try{
+    // 2) 清空 Cache Storage
+    if(window.caches && caches.keys){
+      var keys=await caches.keys().catch(function(){return [];});
+      for(var j=0;j<keys.length;j++){ try{ await caches.delete(keys[j]); say('已删缓存: '+keys[j]); }catch(e){ok=false;say('缓存删除失败: '+e);} }
+      if(!keys.length) say('无离线缓存');
+    }
+  }catch(e){ ok=false; say('缓存检查失败: '+e); }
+  try{
+    // 3) 删除注册码机台账 localStorage（含可能的旧 key）
+    var ks=['lifeplan-activation-ledger-v1','lifeplan-codegen-ledger','lp-activation-ledger'];
+    ks.forEach(function(k){ try{ if(localStorage.getItem(k)!==null){ localStorage.removeItem(k); say('已删台账: '+k); } }catch(e){} });
+  }catch(e){}
+
+  // 若曾经是以 PWA/独立窗口方式安装，提示删桌面图标
+  var standalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
+  var iosStandalone = window.navigator.standalone === true;
+  if(standalone || iosStandalone) document.getElementById('iconTip').style.display='';
+
+  done(ok);
+  document.getElementById('again').style.display='';
+  document.getElementById('again').onclick=function(){ location.reload(); };
+})();
+</script>
+</body>
+</html>
