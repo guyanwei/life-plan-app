@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#4772FA">
 <title>人生规划 · 达成更多，用心生活</title>
+<script>
+/* PWA 残留自愈（2026-11-20）：注册码机(codegen)已下线，清理本机残留的 Service Worker 与离线缓存，
+   避免旧 PWA 从缓存里吐出注册码机页面，被误当成 APP 下载页。每个浏览器只执行一次。 */
+(function(){
+  try{
+    if(localStorage.getItem('_lp_pwa_cleanup_v1')==='1') return;
+    var jobs=[];
+    if('serviceWorker' in navigator && navigator.serviceWorker.getRegistrations){
+      jobs.push(navigator.serviceWorker.getRegistrations().then(function(rs){
+        rs.forEach(function(r){ try{ r.unregister(); }catch(e){} });
+      }).catch(function(){}));
+    }
+    if(window.caches && caches.keys){
+      jobs.push(caches.keys().then(function(ks){
+        return Promise.all(ks.map(function(k){ return caches.delete(k).catch(function(){}); }));
+      }).catch(function(){}));
+    }
+    Promise.all(jobs).then(function(){ localStorage.setItem('_lp_pwa_cleanup_v1','1'); }).catch(function(){});
+  }catch(e){}
+})();
+</script>
 <style>
 :root{
   --primary:#4772FA; --primary-d:#2f54d6; --violet:#7b5ce6; --ink:#151b2b; --ink-2:#5b6680;
